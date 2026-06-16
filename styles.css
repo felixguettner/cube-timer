@@ -51,7 +51,14 @@
   ::selection { background: rgba(228, 231, 234, 0.16); }
 }
 
-html { height: 100%; }
+html {
+  height: 100%;
+  /* Always reserve space for the scrollbar so switching to a taller view
+     (e.g. Analytics) doesn't shift the centered layout left. overflow-y:scroll
+     is honored in every browser; scrollbar-gutter is the cleaner modern path. */
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
 
 body {
   margin: 0;
