@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Cube Timer</title>
+  <meta name="description" content="A minimal Rubik's cube speedsolving timer. Space-bar start/stop, per-solve notes, and analytics — all stored locally in your browser." />
+  <meta name="author" content="Felix Güttner" />
+  <link rel="canonical" href="https://cube.felixguettner.com/" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Cube Timer" />
+  <meta property="og:description" content="A minimal Rubik's cube speedsolving timer. Space-bar start/stop, per-solve notes, and analytics." />
+  <meta property="og:url" content="https://cube.felixguettner.com/" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Cube Timer" />
+  <meta name="twitter:description" content="A minimal Rubik's cube speedsolving timer with local analytics." />
+
+  <link rel="preload" href="fonts/Sabon.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/Sabon-Italic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Cube&nbsp;Timer</h1>
+    <nav class="tabs">
+      <button class="tab active" data-view="timer">Timer</button>
+      <button class="tab" data-view="history">History</button>
+      <button class="tab" data-view="analytics">Analytics</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============ TIMER ============ -->
+    <section id="view-timer" class="view active">
+      <div id="timerStage" tabindex="0">
+        <div id="timerDisplay" class="time-big">0.00</div>
+        <div id="timerHint" class="hint">Press <kbd>Space</kbd> to start</div>
+      </div>
+
+      <div id="noteBox" class="note-box hidden">
+        <div class="note-result">
+          Solved in <strong id="noteTime">0.00</strong>
+        </div>
+        <input id="noteInput" type="text" maxlength="140"
+               placeholder="Add a quick note (optional) — e.g. OLL skip, bad scramble…" />
+        <div class="note-actions">
+          <button id="saveNoteBtn" class="btn primary">Save note</button>
+          <button id="discardBtn" class="btn ghost">Discard solve</button>
+        </div>
+      </div>
+
+      <div class="quick-stats" id="quickStats"></div>
+    </section>
+
+    <!-- ============ HISTORY ============ -->
+    <section id="view-history" class="view">
+      <div class="section-head">
+        <h2>History</h2>
+        <div class="head-actions">
+          <button id="exportBtn" class="btn ghost small">Export JSON</button>
+          <button id="importBtn" class="btn ghost small">Import</button>
+          <input id="importFile" type="file" accept="application/json" hidden />
+          <button id="clearBtn" class="btn danger small">Clear all</button>
+        </div>
+      </div>
+      <table class="solves">
+        <thead>
+          <tr>
+            <th>#</th><th>Time</th><th>Date</th><th>Note</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="solvesBody"></tbody>
+      </table>
+      <p id="historyEmpty" class="empty hidden">No solves yet. Go set some times!</p>
+    </section>
+
+    <!-- ============ ANALYTICS ============ -->
+    <section id="view-analytics" class="view">
+      <h2>Analytics</h2>
+      <div class="cards" id="statCards"></div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h3>Times over time</h3>
+          <span class="legend"><i class="dot solve"></i>Solve <i class="dot ao5"></i>Ao5</span>
+        </div>
+        <div id="chart"></div>
+      </div>
+
+      <div class="panel">
+        <h3>Leaderboard — top 10</h3>
+        <ol id="leaderboard" class="leaderboard"></ol>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
