@@ -34,4 +34,4 @@ done
 
 ## Deploy
 
-Hosted on GitHub Pages from `main` (root). `CNAME` pins the custom domain; `.nojekyll` keeps Pages from touching `fonts/`.
+Hosted on **Vercel**, Git-connected to this repo — every push to `main` deploys automatically. No build step (static site); `vercel.json` only sets a long-lived cache header on `/fonts`. Custom domain `cube.felixguettner.com` is assigned in the Vercel project settings.
