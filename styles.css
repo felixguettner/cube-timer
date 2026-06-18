@@ -84,6 +84,7 @@ body {
 
 /* ---------- header ---------- */
 header {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,6 +92,32 @@ header {
   padding: 56px 28px 0;
   text-align: center;
 }
+
+/* Back-reference to the parent site — a bare Sabon arrow on the far left,
+   vertically centered on the title and sized to match it. No frame, no rule. */
+.backlink {
+  position: absolute;
+  top: 73px;            /* vertical center of the h1 (padding-top 56 + 34/2) */
+  left: 28px;
+  transform: translateY(-50%);
+  color: var(--muted);
+  text-decoration: none;
+  line-height: 1;
+  transition: color 0.12s ease;
+}
+.backlink:hover,
+.backlink:focus-visible { outline: none; color: var(--fg); }
+.backlink-arrow {
+  display: block;
+  font-family: inherit;
+  font-size: 34px;      /* match the h1 */
+  line-height: 1;
+  /* The ← falls back to a system serif whose glyph sits low in the em-box;
+     nudge up ~0.22em so its ink centers optically on the title. */
+  transform: translateY(-0.22em);
+  transition: transform 0.16s ease;
+}
+.backlink:hover .backlink-arrow { transform: translateY(-0.22em) translateX(-4px); }
 
 h1 {
   font-style: italic;
@@ -307,11 +334,16 @@ table.solves { width: 100%; border-collapse: collapse; }
 /* ---------- motion / responsive ---------- */
 @media (prefers-reduced-motion: reduce) {
   .view.active, .note-box { animation: none; }
+  .backlink-arrow { transition: none; }
+  .backlink:hover .backlink-arrow { transform: translateY(-0.22em); }
 }
 
 @media (max-width: 767px) {
   body { font-size: 18px; }
   header { padding-top: 40px; }
+  /* Centered on the smaller mobile h1, tucked into the gutter. */
+  .backlink { top: 55px; left: 22px; }
+  .backlink-arrow { font-size: 30px; }
   h1 { font-size: 30px; }
   main { padding: 36px 22px 64px; }
   .quick-stats { gap: 24px; }
